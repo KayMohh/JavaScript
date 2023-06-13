@@ -1,0 +1,28 @@
+/* 8ecae6-219ebc-023047-ffb703-fb8500 */
+
+body {
+  background-color: #8ecae6;
+}
+.header {
+  color: white;
+  padding: 20px;
+  background-color: #219ebc;
+  text-align: center;
+  line-height: 0.5;
+  height: 100px;
+}
+h1 {
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+div > h3 {
+  color: aliceblue;
+}
+
+h3 {
+  color: rgba(8, 24, 27, 0.897);
+}
+li {
+  list-style: none;
+}
