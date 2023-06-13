@@ -1,7 +1,14 @@
 /* 8ecae6-219ebc-023047-ffb703-fb8500 */
 
 body {
+  background-color: #3b5f74;
+}
+
+.all {
   background-color: #8ecae6;
+
+  padding: 100px;
+  height: 400px;
 }
 .header {
   color: white;
@@ -25,4 +32,23 @@ h3 {
 }
 li {
   list-style: none;
+}
+
+hr {
+  color: #219ebc;
+}
+
+.content {
+  text-align: center;
+  font-size: 3rem;
+}
+
+a {
+  color: #219ebc;
+  text-decoration: none;
+}
+
+a:hover {
+  color: aliceblue;
+  font-size: 4rem;
 }
