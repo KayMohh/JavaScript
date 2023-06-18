@@ -1,51 +1,109 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <link rel="stylesheet" href="style.css">
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <link rel="stylesheet" href="style.css" />
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>KayMohh</title>
-</head>
-<body>
+  </head>
+  <body>
     <div id="header">
-        <div class="container">
-            <nav>
-                <!-- add logo image first  -->
-                <img src="/images/p.jpeg" alt="" class="logo">
-                <ul>
-                    <li> <a href=""> Home</a></li>
-                    <li> <a href=""> About</a></li>
-                    <li> <a href=""> Services</a></li>
-                    <li> <a href=""> Portfolio</a></li>
-                    <li> <a href=""> Contact</a></li>
-                </ul>
-            </nav>
-            <div class="header-text">
-                <p>Software Engineer</p>
-                <h1>Hello. I am <span> Muhammad</span>  <br> From Nigeria</h1>
-            </div>
-
+      <div class="container">
+        <nav>
+          <!-- add logo image first  -->
+          <img src="/images/p.jpeg" alt="" class="logo" />
+          <ul>
+            <li><a href=""> Home</a></li>
+            <li><a href=""> About</a></li>
+            <li><a href=""> Services</a></li>
+            <li><a href=""> Portfolio</a></li>
+            <li><a href=""> Contact</a></li>
+          </ul>
+        </nav>
+        <div class="header-text">
+          <p>Software Engineer</p>
+          <h1>
+            Hello. I am <span> Muhammad</span> <br />
+            From Nigeria
+          </h1>
         </div>
+      </div>
     </div>
     <!-- -------------------------------------about -->
     <div id="about">
-        <div class="container">
-            <div class="row">
-                <div class="about-col-1"></div>
-                <!-- add an image of urcv here -->
-                <!-- <img src="/images/pic.jpeg" alt="" > -->
-                <div class="about-col-2"></div>
-                <h1 class="sub-title">About Me</h1>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolor ex odit asperiores aut, natus nemo amet delectus error ea at quis labore qui numquam incidunt suscipit beatae earum, sint dolorem?</p>
+      <div class="container">
+        <div class="row">
+          <div class="about-col-1">
+            <img src="/images/p.jpeg" alt="" />
+          </div>
+          <!-- add an image of urcv here -->
+          <div class="about-col-2">
+            <h1 class="sub-title">About Me</h1>
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolor ex
+              odit asperiores aut, natus nemo amet delectus error ea at quis
+              labore qui numquam incidunt suscipit beatae earum, sint dolorem?
+            </p>
 
-                <div class="tab-titles">
-                    <p class="tab-links">Skills</p>
-                    <p class="tab-links">Experience</p>
-                    <p class="tab-links">Education</p>
-                </div>
+            <div class="tab-titles">
+              <p class="tab-links selected" id="skills">Skills</p>
+              <p class="tab-links" id="experience">Experience</p>
+              <p class="tab-links" id="education">Education</p>
             </div>
+            <br />
+            <div class="tab-contents is-active">
+              <ul>
+                <li>
+                  <span>Software Dev</span> <br />
+                  Developing Softwares
+                </li>
+                <li>
+                  <span>App Dev</span> <br />
+                  Developing Apps
+                </li>
+                <li>
+                  <span>Web Dev</span> <br />
+                  Developing Web
+                </li>
+              </ul>
+            </div>
+            <div class="tab-contents">
+              <ul>
+                <li>
+                  <span>2020 - 2021</span> <br />
+                  Boyfriend at Boyfriend association of Nigeria
+                </li>
+                <li>
+                  <span>App Dev</span> <br />
+                  Developing Apps
+                </li>
+                <li>
+                  <span>Web Dev</span> <br />
+                  Developing Web
+                </li>
+              </ul>
+            </div>
+            <div class="tab-contents">
+              <ul>
+                <li>
+                  <span>Software Dev</span> <br />
+                  Developing Softwares
+                </li>
+                <li>
+                  <span>App Dev</span> <br />
+                  Developing Apps
+                </li>
+                <li>
+                  <span>Web Dev</span> <br />
+                  Developing Web
+                </li>
+              </ul>
+            </div>
+          </div>
         </div>
+      </div>
     </div>
-</body>
+    <script src="script.js"></script>
+  </body>
 </html>
