@@ -150,10 +150,10 @@ nav ul li a:hover::after {
   display: none;
 }
 
-/* .tab-contents.is-active {
-  display: block;
-} */
-
-.selected {
+.tab-contents.is-active {
   display: block;
 }
+
+/* .selected {
+  display: block;
+} */
