@@ -1,17 +1,23 @@
-var tablinks = document.getElementsByClassName("tab-links");
+var tablinks = document.getElementsByClassName("tab-links")
+var tabcontents = document.getElementsByClassName("tab-contents")
 
-var tabcontents = document.getElementsByClassName("tab-contents");
-
-function expandtab() {
+function expandtab (tabname) {
   for (tablink of tablinks) {
-    tablink.classList.remove("is-active");
+    tablink.classList.remove("active-link")
   }
-  for (tabcontent of tabcontents) {
-    tabcontent.classList.remove("is-active");
+  for (content of tabcontents) {
+    content.classList.remove("active-tab")
   }
-  event.currentTarget.classList.add("is-active");
-  document.getElementById(tabname).classList.add("is-active");
+  event.currentTarget.classList.add("active-link")
+  document.getElementById(tabname).classList.add("active-tab")
 }
+
+// ----------contact
+
+
+   
+
+
 
 // var skills = document.querySelector("#skills");
 // var exp = document.querySelector("#experience");
