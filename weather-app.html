@@ -1,0 +1,188 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Weather App — Project 3</title>
+  <style>
+    /* ------------------------------
+       WEATHER APP STYLING
+    ------------------------------ */
+    body {
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+      background: linear-gradient(135deg, #60a5fa, #3b82f6);
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0;
+      padding: 20px;
+    }
+
+    .app-container {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      border-radius: 16px;
+      padding: 30px;
+      width: 100%;
+      max-width: 400px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+      text-align: center;
+    }
+
+    h1 {
+      margin-bottom: 20px;
+      font-size: 24px;
+      font-weight: 600;
+    }
+
+    input {
+      padding: 10px;
+      width: 80%;
+      border: none;
+      border-radius: 8px;
+      outline: none;
+      font-size: 16px;
+      margin-bottom: 10px;
+    }
+
+    button {
+      background: #2563eb;
+      border: none;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 16px;
+      transition: background 0.2s;
+    }
+
+    button:hover {
+      background: #1d4ed8;
+    }
+
+    .weather-info {
+      margin-top: 20px;
+      background: rgba(255, 255, 255, 0.15);
+      border-radius: 10px;
+      padding: 15px;
+    }
+
+    .city {
+      font-size: 22px;
+      font-weight: 600;
+    }
+
+    .temp {
+      font-size: 40px;
+      margin: 10px 0;
+    }
+
+    .description {
+      font-size: 18px;
+      text-transform: capitalize;
+    }
+
+    .error {
+      color: #fee2e2;
+      margin-top: 10px;
+      font-size: 16px;
+    }
+  </style>
+</head>
+<body>
+  <div class="app-container">
+    <h1>🌤️ Weather App</h1>
+    <input type="text" id="cityInput" placeholder="Enter city name..." />
+    <br />
+    <button id="searchBtn">Get Weather</button>
+    <p id="errorMsg" class="error"></p>
+
+    <div id="weather" class="weather-info hidden">
+      <div class="city" id="cityName"></div>
+      <div class="temp" id="temperature"></div>
+      <div class="description" id="weatherDesc"></div>
+      <div class="humidity" id="humidity"></div>
+    </div>
+  </div>
+
+  <script>
+    /**********************************************
+     * WEATHER APP — Project 3
+     * Demonstrates:
+     * - Fetch API
+     * - Async/Await
+     * - JSON handling
+     * - DOM updates
+     **********************************************/
+
+    const apiKey = "YOUR_API_KEY_HERE"; // Replace with your OpenWeather key
+    const searchBtn = document.getElementById("searchBtn");
+    const cityInput = document.getElementById("cityInput");
+    const weatherEl = document.getElementById("weather");
+    const cityNameEl = document.getElementById("cityName");
+    const tempEl = document.getElementById("temperature");
+    const descEl = document.getElementById("weatherDesc");
+    const humidityEl = document.getElementById("humidity");
+    const errorMsg = document.getElementById("errorMsg");
+
+    // --- Fetch Weather Data ---
+    async function fetchWeather(city) {
+      const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
+      try {
+        const response = await fetch(url);
+        if (!response.ok) {
+          throw new Error("City not found");
+        }
+
+        const data = await response.json();
+        displayWeather(data);
+      } catch (error) {
+        showError(error.message);
+      }
+    }
+
+    // --- Display Weather on Page ---
+    function displayWeather(data) {
+      errorMsg.textContent = "";
+
+      const city = data.name;
+      const temp = data.main.temp.toFixed(1);
+      const description = data.weather[0].description;
+      const humidity = data.main.humidity;
+
+      cityNameEl.textContent = city;
+      tempEl.textContent = `${temp}°C`;
+      descEl.textContent = description;
+      humidityEl.textContent = `Humidity: ${humidity}%`;
+
+      weatherEl.classList.remove("hidden");
+    }
+
+    // --- Show Error Message ---
+    function showError(message) {
+      weatherEl.classList.add("hidden");
+      errorMsg.textContent = message;
+    }
+
+    // --- Handle Button Click ---
+    searchBtn.addEventListener("click", () => {
+      const city = cityInput.value.trim();
+      if (city) {
+        fetchWeather(city);
+        cityInput.value = "";
+      } else {
+        showError("Please enter a city name.");
+      }
+    });
+
+    // --- Allow Enter Key to Trigger Search ---
+    cityInput.addEventListener("keydown", e => {
+      if (e.key === "Enter") {
+        searchBtn.click();
+      }
+    });
+  </script>
+</body>
+</html>
