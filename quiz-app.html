@@ -1,0 +1,264 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Quiz App — Project 2</title>
+  <style>
+    /* ------------------------------
+       QUIZ APP STYLING
+    ------------------------------ */
+    body {
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+      background: #f3f4f6;
+      margin: 0;
+      padding: 40px;
+      display: flex;
+      justify-content: center;
+    }
+
+    .quiz-container {
+      background: white;
+      width: 100%;
+      max-width: 600px;
+      padding: 24px;
+      border-radius: 10px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+    }
+
+    h1 {
+      font-size: 22px;
+      color: #1e293b;
+      text-align: center;
+    }
+
+    .question {
+      margin: 24px 0;
+      font-size: 18px;
+      color: #111827;
+      font-weight: 600;
+    }
+
+    .options {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .option {
+      background: #f9fafb;
+      border: 1px solid #d1d5db;
+      padding: 10px 14px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .option:hover {
+      background: #e0f2fe;
+      border-color: #38bdf8;
+    }
+
+    .option.correct {
+      background: #dcfce7;
+      border-color: #16a34a;
+    }
+
+    .option.wrong {
+      background: #fee2e2;
+      border-color: #dc2626;
+    }
+
+    button {
+      background: #2563eb;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+      margin-top: 20px;
+    }
+
+    button:hover {
+      background: #1d4ed8;
+    }
+
+    .score {
+      text-align: center;
+      font-size: 20px;
+      margin-top: 20px;
+      color: #1e293b;
+      font-weight: 600;
+    }
+
+    .hidden {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="quiz-container">
+    <h1>JavaScript Basics Quiz</h1>
+    <div id="quiz">
+      <div id="question" class="question"></div>
+      <div id="options" class="options"></div>
+      <button id="nextBtn">Next</button>
+    </div>
+    <div id="result" class="hidden">
+      <h2>Quiz Completed 🎉</h2>
+      <p id="scoreText"></p>
+      <button id="restartBtn">Restart Quiz</button>
+    </div>
+  </div>
+
+  <script>
+    /**********************************************
+     * QUIZ APP — Project 2
+     * Demonstrates:
+     * - Conditional logic (if/else)
+     * - DOM updates
+     * - Event handling
+     * - Score tracking
+     **********************************************/
+
+    // --- Quiz Questions (You can add more easily) ---
+    const quizData = [
+      {
+        question: "Which keyword is used to declare a variable in JavaScript?",
+        options: ["let", "var", "const", "All of the above"],
+        answer: "All of the above"
+      },
+      {
+        question: "What is the output of: console.log(typeof 42)?",
+        options: ["string", "number", "boolean", "undefined"],
+        answer: "number"
+      },
+      {
+        question: "Which symbol is used for comments in JavaScript?",
+        options: ["#", "//", "<!-- -->", "/* */"],
+        answer: "//"
+      },
+      {
+        question: "What does DOM stand for?",
+        options: [
+          "Document Object Model",
+          "Data Object Management",
+          "Display Object Mechanism",
+          "Desktop Object Module"
+        ],
+        answer: "Document Object Model"
+      },
+      {
+        question: "Which method is used to print output to the console?",
+        options: ["log.console()", "console.log()", "print()", "display()"],
+        answer: "console.log()"
+      }
+    ];
+
+    // --- DOM Elements ---
+    const questionEl = document.getElementById("question");
+    const optionsEl = document.getElementById("options");
+    const nextBtn = document.getElementById("nextBtn");
+    const resultEl = document.getElementById("result");
+    const scoreText = document.getElementById("scoreText");
+    const restartBtn = document.getElementById("restartBtn");
+    const quizEl = document.getElementById("quiz");
+
+    // --- Quiz State Variables ---
+    let currentQuestion = 0;
+    let score = 0;
+    let answered = false; // prevents multiple selections
+
+    // --- Load a Question ---
+    function loadQuestion() {
+      // Get current question object
+      const currentData = quizData[currentQuestion];
+      questionEl.textContent = `${currentQuestion + 1}. ${currentData.question}`;
+
+      // Clear old options
+      optionsEl.innerHTML = "";
+      answered = false;
+
+      // Create option buttons dynamically
+      currentData.options.forEach(optionText => {
+        const btn = document.createElement("div");
+        btn.classList.add("option");
+        btn.textContent = optionText;
+        optionsEl.appendChild(btn);
+
+        // Event listener for selecting an answer
+        btn.addEventListener("click", () => selectAnswer(btn, currentData.answer));
+      });
+    }
+
+    // --- Handle Answer Selection ---
+    function selectAnswer(selectedBtn, correctAnswer) {
+      if (answered) return; // Prevent multiple clicks
+      answered = true;
+
+      const options = document.querySelectorAll(".option");
+      options.forEach(btn => {
+        if (btn.textContent === correctAnswer) {
+          btn.classList.add("correct");
+        } else if (btn === selectedBtn) {
+          btn.classList.add("wrong");
+        }
+        btn.style.pointerEvents = "none"; // disable further clicks
+      });
+
+      // Check if correct and update score
+      if (selectedBtn.textContent === correctAnswer) {
+        score++;
+      }
+    }
+
+    // --- Handle Next Button ---
+    nextBtn.addEventListener("click", () => {
+      // Ensure question is answered before moving on
+      if (!answered) {
+        alert("Please select an answer before continuing.");
+        return;
+      }
+
+      currentQuestion++;
+      if (currentQuestion < quizData.length) {
+        loadQuestion();
+      } else {
+        showResult();
+      }
+    });
+
+    // --- Show Final Result ---
+    function showResult() {
+      quizEl.classList.add("hidden");
+      resultEl.classList.remove("hidden");
+
+      const total = quizData.length;
+      const percentage = ((score / total) * 100).toFixed(0);
+      scoreText.textContent = `You scored ${score} out of ${total} (${percentage}%)`;
+
+      // Simple conditional feedback
+      if (percentage >= 80) {
+        scoreText.textContent += " — Excellent job! 🌟";
+      } else if (percentage >= 50) {
+        scoreText.textContent += " — Good effort!";
+      } else {
+        scoreText.textContent += " — Keep practicing!";
+      }
+    }
+
+    // --- Restart Quiz ---
+    restartBtn.addEventListener("click", () => {
+      currentQuestion = 0;
+      score = 0;
+      quizEl.classList.remove("hidden");
+      resultEl.classList.add("hidden");
+      loadQuestion();
+    });
+
+    // --- Initialize the Quiz ---
+    loadQuestion();
+  </script>
+</body>
+</html>
